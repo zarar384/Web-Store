@@ -1,0 +1,70 @@
+﻿@model IEnumerable<Rocky.Models.ApplicationType> 
+
+@{
+    ViewData["Title"] = "ApplicationType Page";
+
+}
+
+<div class="text-center">
+    <h1 class="display-4">ApplicationType</h1>
+    <p>You <a href="https://dtf.ru/u/55423-felix">DTF account</a>.</p>
+</div>
+<div class="container p-3">
+    <div class="row p-4">
+        <div class="col p-6">
+            <h2 class="text-primary">ApplicationType List</h2>
+        </div>
+        <div class="col-6 text-right">
+            <a class="btn btn-primary" asp-controller="ApplicationType" asp-action="Create">
+                <i class="fa-solid fa-plus"></i>&nbsp;
+                Create New ApplicationType
+            </a>
+        </div>
+    </div>
+    <br /><br />
+
+    @if (Model.Count() > 0)
+    {
+        <table class="table table-bordered table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th>
+                        Category Name
+                    </th>
+                    <th>
+                        Display Order
+                    </th>
+                    <th>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var obj in Model)
+                {
+                    <tr>
+                        <td width="50%">
+                            @obj.name
+                        </td>
+                        <td>
+                            <div class="text-center">
+                                <div class="w-75 btn-group" role="group">
+                                    <a  asp-controller="ApplicationType" asp-route-Id="@obj.id"  asp-action="Edit" class="btn btn-primary">
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                    </a>
+                                    <a  asp-controller="ApplicationType" asp-route-Id="@obj.id"  asp-action="Delete" class="btn btn-danger">
+                                        <i class="fa-solid fa-ban"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No ApplicationType exists</p>
+    }
+    
+</div>
