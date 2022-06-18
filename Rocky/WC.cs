@@ -7,6 +7,7 @@ namespace Rocky
 {
     public static class WC
     {
-        public const string ImagePath = @"\img\product\";
+        public static string ImagePath = @"\img\product\";
+        public static string SessionCart = "ShoppingCartSession";
     }
 }
