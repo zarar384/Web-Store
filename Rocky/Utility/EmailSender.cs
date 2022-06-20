@@ -4,11 +4,19 @@ using System;
 using Newtonsoft.Json.Linq;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 
 namespace Rocky.Utility
 {
     public class EmailSender : IEmailSender
     {
+        private readonly IConfiguration _configuration;
+        public MailJetSettings _mailJetSettings { get; set;}
+        public EmailSender(IConfiguration configuration, MailJetSettings mailJetSettings)
+        {
+            _configuration = configuration;
+            _mailJetSettings = mailJetSettings;
+        }
         public Task SendEmailAsync(string email, string subject, string htmlMessage)
         {
             return Execute(email, subject, htmlMessage);
@@ -16,8 +24,8 @@ namespace Rocky.Utility
 
         public async Task Execute(string email, string subject, string body)
         {
-
-            MailjetClient client = new MailjetClient("df3b80a2189493712382c3f415f620de", "af870801a5eefac6666b9ee97f216776");
+            _mailJetSettings = _configuration.GetSection("MailJet").Get<MailJetSettings>();
+            MailjetClient client = new MailjetClient(_mailJetSettings.ApiKey, _mailJetSettings.SecretKey);
 
             MailjetRequest request = new MailjetRequest
             {
@@ -28,8 +36,8 @@ namespace Rocky.Utility
       {
        "From",
        new JObject {
-        {"Email", "zarar1117@gmail.com"},
-        {"Name", "Felix"}
+        {"Email", "zarar1117@proton.me"},
+        {"Name", "zarar1117"}
        }
       }, {
        "To",
